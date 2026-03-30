@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 d-none d-md-block">
+        <div class="card shadow-sm border-0 p-3 text-center sticky-top" style="top: 80px;">
+            <img src="{{ url_for('static', filename='uploads/' + user.profile_pic) }}" class="rounded-circle mx-auto mb-2 shadow-sm" style="width: 80px; height: 80px; object-fit: cover;">
+            <h5 class="fw-bold">@{{ user.username }}</h5>
+            <a href="/profile/{{ user.username }}" class="btn btn-sm btn-primary rounded-pill btn-block">My Profile</a>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        {% if search_query %}
+            <div class="alert alert-info d-flex justify-content-between align-items-center">
+                <span>Showing posts from: <strong>@{{ search_query }}</strong></span>
+                <a href="/home" class="btn btn-sm btn-outline-info">View All Feed</a>
+            </div>
+        {% else %}
+            <h4 class="mb-4 fw-bold">Recent Posts</h4>
+        {% endif %}
+        
+        {% include "posts_div.html" %}
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-3">
+            <h6 class="fw-bold">Explore</h6>
+            <hr>
+            <a href="{{ url_for('views.create_post') }}" class="btn btn-success btn-sm btn-block rounded-pill">Create New Post</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

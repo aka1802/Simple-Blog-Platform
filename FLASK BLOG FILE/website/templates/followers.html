@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow border-0 rounded-lg">
+            <div class="card-body p-4">
+                <h4 class="fw-bold mb-4">Followers of @{{ profile_user.username }}</h4>
+                <div class="list-group list-group-flush">
+                    {% for follower in profile_user.followers %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ url_for('static', filename='uploads/' + follower.profile_pic) }}" class="rounded-circle mr-3" width="45" height="45" style="object-fit: cover;">
+                            <a href="/profile/{{ follower.username }}" class="fw-bold text-dark">@{{ follower.username }}</a>
+                        </div>
+                        <a href="/profile/{{ follower.username }}" class="btn btn-sm btn-light border rounded-pill">View</a>
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center py-4">This user doesn't have any followers yet.</p>
+                    {% endfor %}
+                </div>
+                <hr>
+                <a href="/profile/{{ profile_user.username }}" class="btn btn-block btn-link text-muted">Back to Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

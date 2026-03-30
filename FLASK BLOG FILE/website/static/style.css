@@ -1,0 +1,26 @@
+body {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  min-height: 100vh;
+  color: #333;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card img {
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-primary, .btn-success {
+  border-radius: 50px;
+}
+
+textarea {
+  border-radius: 10px;
+}
+
+input[type=file] {
+  border-radius: 10px;
+}

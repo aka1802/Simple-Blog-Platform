@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-5 shadow border-0 text-center mb-4 rounded-lg">
+    <img src="{{ url_for('static', filename='uploads/' + profile_user.profile_pic) }}" 
+         class="rounded-circle border mx-auto mb-3 shadow-sm" style="width: 150px; height: 150px; object-fit: cover;">
+    
+    <h2 class="fw-bold">@{{ profile_user.username }}</h2>
+    <p class="text-muted">"{{ profile_user.bio }}"</p>
+    
+    <div class="row border-top border-bottom py-3 mb-4 mt-2">
+        <div class="col"><strong>{{ profile_user.posts|length }}</strong><br><small>Posts</small></div>
+        <div class="col">
+            <a href="{{ url_for('views.followers_list', username=profile_user.username) }}" class="text-dark">
+                <strong>{{ profile_user.followers.count() }}</strong><br><small>Followers</small>
+            </a>
+        </div>
+        <div class="col"><strong>{{ profile_user.followed.count() }}</strong><br><small>Following</small></div>
+    </div>
+
+    {% if user.id == profile_user.id %}
+        <a href="{{ url_for('views.edit_profile') }}" class="btn btn-outline-primary rounded-pill px-5">Edit Profile</a>
+    {% else %}
+        {% if user.followed.filter_by(id=profile_user.id).first() %}
+            <a href="{{ url_for('views.unfollow', username=profile_user.username) }}" class="btn btn-danger px-5 rounded-pill">Unfollow</a>
+        {% else %}
+            <a href="{{ url_for('views.follow', username=profile_user.username) }}" class="btn btn-primary px-5 rounded-pill">Follow</a>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

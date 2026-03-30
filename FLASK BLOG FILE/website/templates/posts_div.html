@@ -1,0 +1,48 @@
+<div id="posts">
+  {% for post in posts %}
+  <div class="card mb-4 shadow-sm border-0 rounded-lg">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center pt-3 border-0">
+      <a href="/profile/{{ post.user.username }}" class="fw-bold text-dark">@{{ post.user.username }}</a>
+      {% if user.id == post.author %}
+      <a href="{{ url_for('views.delete_post', id=post.id) }}" class="text-danger small"><i class="fas fa-trash"></i></a>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{ post.text }}</p>
+      {% if post.image %}
+          <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="img-fluid rounded mb-3 shadow-sm"/>
+      {% endif %}
+      
+      <div class="d-flex align-items-center mb-3">
+          <div class="mr-4" onclick="like({{ post.id }})" style="cursor:pointer;">
+              <i id="like-icon-{{ post.id }}" class="fas fa-thumbs-up"></i> 
+              <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span>
+          </div>
+          <div onclick="dislike({{ post.id }})" style="cursor:pointer;">
+              <i id="dislike-icon-{{ post.id }}" class="fas fa-thumbs-down"></i> 
+              <span id="dislikes-count-{{ post.id }}">{{ post.dislikes|length }}</span>
+          </div>
+      </div>
+
+      <div class="border-top pt-3">
+        {% for comment in post.comments %}
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="small"><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</span>
+          {% if user.id == comment.author or user.id == post.author %}
+          <a href="{{ url_for('views.delete_comment', comment_id=comment.id) }}" class="text-danger" style="font-size: 1.5rem; font-weight: bold; line-height: 1;">&times;</a>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <form method="POST" action="/create-comment/{{ post.id }}" class="mt-2">
+          <div class="input-group input-group-sm">
+            <input type="text" name="text" class="form-control rounded-pill-left" placeholder="Add a comment...">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary rounded-pill-right">Post</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

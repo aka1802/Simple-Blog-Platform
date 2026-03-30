@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 card p-4 shadow border-0">
+    <h3 class="text-center fw-bold mb-4">Share an Update</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <textarea name="text" class="form-control mb-3" rows="4" placeholder="What's happening?" required></textarea>
+        
+        <div class="mb-3">
+            <label class="form-label fw-bold">Select Category</label>
+            <select name="category" class="form-select">
+                <option value="General">General</option>
+                <option value="Tech">Tech</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Lifestyle">Lifestyle</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-bold">Upload Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-success w-100 fw-bold py-2">Post Content</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
