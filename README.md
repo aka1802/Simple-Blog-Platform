@@ -20,7 +20,7 @@ Front-End:
 
 Back-End:
   Python 3
-  Fl ask (Web Framework)
+  Flask (Web Framework)
   Flask-Login (Session Management)
 
 Database & Storage:
